@@ -6,131 +6,110 @@ export function twoFirst() {
   zooMaster.addAnimal('horse', 13);
   zooMaster.addAnimal('cow', 6);
 
-  assertAddition();
-  assertNumOfAnimal();
-  assertNameByNumber();
-  assertAllAnimalsNum();
-  assertOutputZoo();
-  assertSortZoo();
-  assertFindAnimal();
-  assertDelete();
+  testAddition();
+  testNumOfAnimal();
+  testNameByNumber();
+  testAllAnimalsNum();
+  testOutputZoo();
+  testSortZoo();
+  testFindAnimal();
+  testDelete();
+
 }
 
-function assertAddition() {
+function testAddition() {
   try {
-    let result = zooMaster.zoo.length === 5;
+    let result = zooMaster.zoo.length;
 
-    if (result !== true) {
-      throw new Error('The addition was made incorrectly');
-    } else {
-      console.log('test #1 was passed successfully');
-    }
+    assertResult(result, 5);
   } catch (e) {
     console.log(e);
   }
 }
 
-function assertNumOfAnimal() {
+function testNumOfAnimal() {
   try {
-    let result = zooMaster.numOfAnimal('cat') === 1;
+    let result = zooMaster.numOfAnimal('cat');
 
-    if (result !== true) {
-      throw new Error('The number was found incorrectly');
-    } else {
-      console.log('test #2 was passed successfully');
-    }
+    assertResult(result, 1);
   } catch (e) {
     console.log(e);
   }
 }
 
-function assertNameByNumber() {
+function testNameByNumber() {
   try {
-    let check = [ 'dog', 'kangaroo' ]
-    let result = zooMaster.nameByNumber(3);
+    let standard = JSON.stringify([ 'dog', 'kangaroo' ]);
+    let result = JSON.stringify(zooMaster.nameByNumber(3));
 
-    for (let item = 0; item < result.length; item++) {
-      if (result[item] !== check[item]) {
-        throw new Error('The output was made incorrectly');
-      }
-    }
-    console.log('test #3 was passed successfully');
+    assertResult(result, standard);
   } catch (e) {
     console.log(e);
   }
 }
 
-function assertAllAnimalsNum() {
+function testAllAnimalsNum() {
   try {
-    let result = zooMaster.allAnimalsNum() === 26;
+    let result = zooMaster.allAnimalsNum();
 
-    if (result !== true) {
-      throw new Error('The number of animals was found incorrectly');
-    } else {
-      console.log('test #4 was passed successfully');
-    }
+    assertResult(result, 26);
   } catch (e) {
     console.log(e);
   }
 }
 
-function assertOutputZoo() {
+function testOutputZoo() {
   try {
-    let check = [ 'dog : 3', 'cat : 1', 'kangaroo : 3', 'horse : 13', 'cow : 6' ];
+    let standard = JSON.stringify(zooMaster.zoo);
     let result = zooMaster.outputZoo();
 
-    for (let item = 0; item < result.length; item++) {
-      if (result[item] !== check[item]) {
-        throw new Error('The output was made incorrectly');
-      }
-    }
-    console.log('test #5 was passed successfully');
+    assertResult(result, standard);
   } catch (e) {
     console.log(e);
   }
 }
 
-function assertSortZoo() {
+function testSortZoo() {
   try {
-    let check = [ 'cat : 1', 'dog : 3', 'dog : 3', 'cow : 6', 'horse : 13' ];
-    let result = zooMaster.sortZoo();
+    let standard = JSON.stringify([
+        { name: 'cat', number: 1 },
+        { name: 'dog', number: 3 },
+        { name: 'kangaroo', number: 3 },
+        { name: 'cow', number: 6 },
+        { name: 'horse', number: 13 }
+      ]);
+    let result = JSON.stringify(zooMaster.sortZoo());
 
-    for (let item = 0; item < result.length; item++) {
-      if (result[item] !== check[item]) {
-        throw new Error('The output was made incorrectly');
-      }
-    }
-    console.log('test #6 was passed successfully');
+    assertResult(result,standard);
   } catch (e) {
     console.log(e);
   }
 }
 
-function assertFindAnimal() {
+function testFindAnimal() {
   try {
     let result = zooMaster.findAnimal('cow');
 
-    if (!result) {
-      throw new Error('The finding was made incorrectly');
-    } else {
-      console.log('test #7 was passed successfully');
-    }
+    assertResult(result, true);
   } catch (e) {
     console.log(e);
   }
 }
 
-function assertDelete() {
+function testDelete() {
   try {
     zooMaster.deleteAnimal('horse');
-    let result = zooMaster.zoo.length === 4;
+    let result = zooMaster.zoo.length;
 
-    if (result !== true) {
-      throw new Error('The removal was made incorrectly');
-    } else {
-      console.log('test #8 was passed successfully');
-    }
+    assertResult(result, 4);
   } catch (e) {
     console.log(e);
   }
+}
+
+function assertResult(result, standard) {
+  if (result !== standard) {
+    throw new Error('test failed');
+  }
+  console.log('test was passed successfully');
 }

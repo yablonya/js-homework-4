@@ -4,38 +4,39 @@ export function one() {
     '1' : 1,
     '2' : 2,
   };
-  let sym = Symbol('3')
+
+  let sym = Symbol('3');
   let user2 = {
     '1' : 1,
     '2' : 2,
-    [sym] : 3
+    [sym] : 3,
   };
 
-  assertWithoutSym(user1);
-  assertWithSym(user2);
+  testWithoutSym(user1);
+  testWithSym(user2);
 }
 
-function assertWithoutSym(object) {
+function testWithoutSym(object) {
   try {
     let result = difference(object);
-    if (!result) {
-      throw new Error('the comparison was made incorrect');
-    } else {
-      console.log('test #1 was passed successfully')
-    }
+
+    assertResult(result, true);
   } catch (e) {
     console.log(e);
   }
 }
-function assertWithSym(object) {
+function testWithSym(object) {
   try {
     let result = difference(object);
-    if (result) {
-      throw new Error('the comparison was made incorrect');
-    } else {
-      console.log('test #2 was passed successfully')
-    }
+
+    assertResult(result, false);
   } catch (e) {
     console.log(e);
   }
+}
+function assertResult(result, standard) {
+  if (result !== standard) {
+    throw new Error('test failed');
+  }
+  console.log('test was passed successfully');
 }

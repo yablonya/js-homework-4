@@ -9,7 +9,7 @@ function ask() {
   }
 
   for (let task in tasks) {
-    console.log(`Task №${task}`)
+    console.log(`Task №${task}`);
     tasks[task]();
   }
 }

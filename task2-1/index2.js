@@ -29,43 +29,21 @@ export const zooMaster = {
   },
 
   sortZoo() {
-    let sortedZoo = [];
+    let sortedZoo = this.zoo.slice();
 
-    this.zoo.forEach(animal => sortedZoo.push(animal.number));
-
-    function compareNumeric(a, b) {
-      if (a > b) return 1;
-      if (a === b) return 0;
-      if (a < b) return -1;
+    function compareNumeric(animal1, animal2) {
+      return animal1.number - animal2.number;
     }
 
-    sortedZoo.sort(compareNumeric);
-
-    for (let i = 0; i < sortedZoo.length; i++) {
-      sortedZoo[i] = this.zoo.find(animal => animal.number === sortedZoo[i]);
-    }
-
-    let output = []
-
-    for (let animal of sortedZoo) {
-      output.push(`${animal.name} : ${animal.number}`);
-    }
-
-    return output;
+    return sortedZoo.sort(compareNumeric);
   },
 
   addAnimal(name, number = 1) {
-    this.zoo.push({"name": name, "number": number});
+    this.zoo.push({name, number});
   },
 
   outputZoo() {
-    let output = []
-
-    for (let animal of this.zoo) {
-      output.push(`${animal.name} : ${animal.number}`);
-    }
-
-    return output;
+    return JSON.stringify(this.zoo);
   },
 
   deleteAnimal(name) {
