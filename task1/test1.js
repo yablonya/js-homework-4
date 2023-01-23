@@ -38,5 +38,5 @@ function assertResult(result, standard) {
   if (result !== standard) {
     throw new Error('test failed');
   }
-  console.log('test was passed successfully');
+  console.log('test passed successfully');
 }
