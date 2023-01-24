@@ -29,7 +29,7 @@ function testValueByKey() {
   assert(result2, 'js');
 }
 
-function testFindItem(key) {
+function testFindItem() {
   let result1 = mapFunctions.findItem('cake');
   let result2 = mapFunctions.findItem('test');
 
@@ -37,7 +37,7 @@ function testFindItem(key) {
   assert(result2, true);
 }
 
-function testDeleteItem(key) {
+function testDeleteItem() {
   mapFunctions.deleteItem('test');
   let standard = JSON.stringify([ [ true, 3 ], [ 23, 'js' ] ]);
 
