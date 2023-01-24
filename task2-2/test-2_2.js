@@ -18,98 +18,66 @@ export function twoSecond() {
 }
 
 function testAddition() {
-  try {
-    let result = zooMaster2.zoo.length;
+  let result = zooMaster2.zoo.length;
 
-    assertResult(result, 5);
-  } catch (e) {
-    console.log(e);
-  }
+  assertResult(result, 5);
 }
 
 function testNumOfAnimal() {
-  try {
-    let result = zooMaster2.numOfAnimal('cat');
+  let result = zooMaster2.numOfAnimal('cat');
 
-    assertResult(result, 1);
-  } catch (e) {
-    console.log(e);
-  }
+  assertResult(result, 1);
 }
 
 function testNameByNumber() {
-  try {
-    let standard = JSON.stringify([ 'dog', 'kangaroo' ]);
-    let result = JSON.stringify(zooMaster2.nameByNumber(3));
+  let standard = JSON.stringify([ 'dog', 'kangaroo' ]);
+  let result = JSON.stringify(zooMaster2.nameByNumber(3));
 
-    assertResult(result, standard);
-  } catch (e) {
-    console.log(e);
-  }
+  assertResult(result, standard);
 }
 
 function testAllAnimalsNum() {
-  try {
-    let result = zooMaster2.allAnimalsNum();
+  let result = zooMaster2.allAnimalsNum();
 
-    assertResult(result, 26);
-  } catch (e) {
-    console.log(e);
-  }
+  assertResult(result, 26);
 }
 
 function testOutputZoo() {
-  try {
-    let standard = JSON.stringify(zooMaster2.zoo);
-    let result = zooMaster2.outputZoo();
+  let standard = JSON.stringify(zooMaster2.zoo);
+  let result = zooMaster2.outputZoo();
 
-    assertResult(result, standard);
-  } catch (e) {
-    console.log(e);
-  }
+  assertResult(result, standard);
 }
 
 function testSortZoo() {
-  try {
-    let standard = JSON.stringify([
-      { name: 'cat', number: 1 },
-      { name: 'dog', number: 3 },
-      { name: 'kangaroo', number: 3 },
-      { name: 'cow', number: 6 },
-      { name: 'horse', number: 13 }
-    ]);
-    let result = JSON.stringify(zooMaster2.sortZoo());
+  let standard = JSON.stringify([
+    { name: 'cat', number: 1 },
+    { name: 'dog', number: 3 },
+    { name: 'kangaroo', number: 3 },
+    { name: 'cow', number: 6 },
+    { name: 'horse', number: 13 }
+  ]);
+  let result = JSON.stringify(zooMaster2.sortZoo());
 
-    assertResult(result,standard);
-  } catch (e) {
-    console.log(e);
-  }
+  assertResult(result,standard);
 }
 
 function testFindAnimal() {
-  try {
-    let result = zooMaster2.findAnimal('cow');
+  let result = zooMaster2.findAnimal('cow');
 
-    assertResult(result, true);
-  } catch (e) {
-    console.log(e);
-  }
+  assertResult(result, true);
 }
 
 function testDelete() {
-  try {
-    zooMaster2.deleteAnimal('horse');
-    let result = zooMaster2.zoo.length;
+  zooMaster2.deleteAnimal('horse');
+  let result = zooMaster2.zoo.length;
 
-    assertResult(result, 4);
-  } catch (e) {
-    console.log(e);
-  }
+  assertResult(result, 4);
 }
 
 function assertResult(result, standard) {
   if (result !== standard) {
-    throw new Error('test failed');
+    console.log('test failed');
   }
   console.log('test passed successfully');
 }

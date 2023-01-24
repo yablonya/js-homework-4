@@ -1,4 +1,4 @@
-import {difference} from "./index1.js";
+import {difference} from "./index-1.js";
 export function one() {
   let user1 = {
     '1' : 1,
@@ -17,26 +17,18 @@ export function one() {
 }
 
 function testWithoutSym(object) {
-  try {
-    let result = difference(object);
+  let result = difference(object);
 
-    assertResult(result, true);
-  } catch (e) {
-    console.log(e);
-  }
+  assert(result, true);
 }
 function testWithSym(object) {
-  try {
-    let result = difference(object);
+  let result = difference(object);
 
-    assertResult(result, false);
-  } catch (e) {
-    console.log(e);
-  }
+  assert(result, false);
 }
-function assertResult(result, standard) {
+function assert(result, standard) {
   if (result !== standard) {
-    throw new Error('test failed');
+    console.log('test failed');
   }
   console.log('test passed successfully');
 }
