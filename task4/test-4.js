@@ -1,95 +1,128 @@
 import {mapFunctions} from "./index-4.js";
-export function four() {
-  testAdding();
-  testValueByKey();
-  testFindItem();
-  testDeleteItem();
-  testMapLength();
-  testMapKeys();
-  testMapValues();
-  testMapEntries();
-  testClearMap();
-}
 
-function testAdding() {
+let trueMap = new Map();
+
+export function four() {
   mapFunctions.addItem(true, 3);
   mapFunctions.addItem(23, 'js');
   mapFunctions.addItem('test', {'1' : true});
 
-  assertResult(mapFunctions.myMap.length, 3);
+  trueMap.set(true, 3);
+  trueMap.set(23, 'js');
+  trueMap.set('test', {'1' : true});
+
+  errorCatcher(testAdding);
+  errorCatcher(testValueByKey);
+  errorCatcher(testFindItem);
+  errorCatcher(testDeleteItem);
+  errorCatcher(testMapKeys);
+  errorCatcher(testMapValues);
+  errorCatcher(testMapEntries);
+  errorCatcher(testClearMap);
+}
+
+function testAdding() {
+  let i = 0;
+  let counter = 0;
+  for (let item of trueMap.entries()) {
+    if (JSON.stringify(item) === JSON.stringify(mapFunctions.myMap[i])) {
+      counter++;
+    }
+    i++;
+  }
+
+  assert(counter, 3);
 }
 
 function testValueByKey() {
-  let result1 = mapFunctions.valueByKey(23);
-  let result2 = mapFunctions.valueByKey('test');
-  let result3 = mapFunctions.valueByKey('pizda');
+  const result1 = mapFunctions.valueByKey(true);
+  const standard1 = trueMap.get(true);
+  const result2 = mapFunctions.valueByKey('bleb');
+  const standard2 = trueMap.get('bleb');
 
-  assertUndefined(result1, 'js');
-  assertUndefined(result2, {'1' : true});
-  assertUndefined(result3, 'sraka');
+  assert(result1, standard1);
+  assert(result2, standard2);
 }
 
 function testFindItem() {
-  let result1 = mapFunctions.findItem('cake');
-  let result2 = mapFunctions.findItem('test');
+  const result = mapFunctions.findItem(23);
+  const standard = trueMap.has(23);
 
-  assertResult(result1, false);
-  assertResult(result2, true);
+  assert(result, standard);
 }
 
 function testDeleteItem() {
-  mapFunctions.deleteItem('test');
-  let standard = JSON.stringify([ [ true, 3 ], [ 23, 'js' ] ]);
+  mapFunctions.deleteItem(23);
+  trueMap.delete(23);
 
-  assertUndefined(JSON.stringify(mapFunctions.myMap), standard);
-  assertUndefined(mapFunctions.deleteItem('jack'));
-}
+  const result = mapFunctions.findItem(23);
+  const standard = trueMap.has(23);
 
-function testMapLength() {
-  let result = mapFunctions.mapLength();
-
-  assertResult(result, 2);
+  assert(result, standard);
 }
 
 function testMapKeys() {
-  let standard = JSON.stringify([ true, 23 ]);
-  let result = JSON.stringify(mapFunctions.mapKeys());
+  let i = 0;
+  let counter = 0;
+  for (let item of trueMap.keys()) {
+    if (JSON.stringify(item) === JSON.stringify(mapFunctions.mapKeys()[i])) {
+      counter++;
+    }
+    i++;
+  }
 
-  assertResult(result, standard);
+  assert(counter, 2);
 }
 
 function testMapValues() {
-  let standard = JSON.stringify([ 3, 'js' ]);
-  let result = JSON.stringify(mapFunctions.mapValues());
+  let i = 0;
+  let counter = 0;
+  for (let item of trueMap.values()) {
+    if (JSON.stringify(item) === JSON.stringify(mapFunctions.mapValues()[i])) {
+      counter++;
+    }
+    i++;
+  }
 
-  assertResult(result, standard);
+  assert(counter, 2);
 }
 
 function testMapEntries() {
-  let standard = JSON.stringify([ [ true, 3 ], [ 23, 'js' ] ]);
-  let result = JSON.stringify(mapFunctions.mapEntries());
+  let i = 0;
+  let counter = 0;
+  for (let item of trueMap.entries()) {
+    if (JSON.stringify(item) === JSON.stringify(mapFunctions.mapEntries()[i])) {
+      counter++;
+    }
+    i++;
+  }
 
-  assertResult(result, standard);
+  assert(counter, 2);
 }
 
 function testClearMap() {
   mapFunctions.clearMap();
+  trueMap.clear();
 
-  assertResult(mapFunctions.myMap.length, 0);
+  const result = mapFunctions.mapLength();
+  const standard = trueMap.size;
+
+  assert(result, standard);
 }
 
-function assertUndefined(result, standard) {
-  if (result === undefined) {
-    return console.log('you have entered incorrect data');
-  }
-  assertResult(result, standard);
-}
-
-function assertResult(result, standard) {
-  if (JSON.stringify(result) !== JSON.stringify(standard)) {
-    return console.log('test failed');
+function assert(result, standard) {
+  if (result !== standard) {
+    throw new Error('test failed');
   }
   console.log('test passed successfully');
+}
+
+function errorCatcher(func) {
+  try {
+    func();
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 

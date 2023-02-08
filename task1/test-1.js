@@ -1,34 +1,43 @@
 import {difference} from "./index-1.js";
+
+let user1 = {
+  '1' : 1,
+  '2' : 2,
+};
+
+let sym = Symbol('3');
+let user2 = {
+  '1' : 1,
+  '2' : 2,
+  [sym] : 3,
+};
+
 export function one() {
-  let user1 = {
-    '1' : 1,
-    '2' : 2,
-  };
-
-  let sym = Symbol('3');
-  let user2 = {
-    '1' : 1,
-    '2' : 2,
-    [sym] : 3,
-  };
-
-  testWithoutSym(user1);
-  testWithSym(user2);
+  errorCatcher(testWithoutSym);
+  errorCatcher(testWithSym);
 }
 
-function testWithoutSym(object) {
-  let result = difference(object);
+function testWithoutSym() {
+  let result = difference(user1);
 
   assert(result, true);
 }
-function testWithSym(object) {
-  let result = difference(object);
+function testWithSym() {
+  let result = difference(user2);
 
   assert(result, false);
 }
 function assert(result, standard) {
   if (result !== standard) {
-    console.log('test failed');
+    throw new Error('test failed');
   }
   console.log('test passed successfully');
+}
+
+function errorCatcher(func) {
+  try {
+    func();
+  } catch (e) {
+    console.log(e);
+  }
 }
