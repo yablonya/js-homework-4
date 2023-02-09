@@ -7,7 +7,7 @@ export const zooMaster2 = {
         return animal.number;
       }
     }
-
+    throw new Error('There is no such animal in the zoo');
   },
 
   allAnimalsNum() {
@@ -28,6 +28,10 @@ export const zooMaster2 = {
         namesArray.length++;
         namesArray[namesArray.length - 1] = animal.name;
       }
+    }
+
+    if (namesArray.length === 0) {
+      throw new Error('There are no such number of animals');
     }
 
     return namesArray;
@@ -51,8 +55,16 @@ export const zooMaster2 = {
   },
 
   addAnimal(name, number = 1) {
-    this.zoo.length++;
-    this.zoo[this.zoo.length - 1] = {name, number};
+    if ( this.findAnimal(name) ) {
+      for (let animal of this.zoo) {
+        if (animal.name === name) {
+          animal.number += number;
+        }
+      }
+    } else {
+      this.zoo.length++;
+      this.zoo[this.zoo.length - 1] = {name, number};
+    }
   },
 
   outputZoo() {
@@ -60,14 +72,18 @@ export const zooMaster2 = {
   },
 
   deleteAnimal(name) {
+    let originLength = this.zoo.length
     for (let i = 0; i < this.zoo.length; i++) {
       if (this.zoo[i].name === name) {
         for (let j = i; j < this.zoo.length; j++) {
           this.zoo[j] = this.zoo[j++];
         }
+        this.zoo.length--;
       }
     }
-    this.zoo.length--;
+    if (originLength === this.zoo.length) {
+      throw new Error('There is no such animal in the zoo');
+    }
   },
 
   findAnimal(name) {

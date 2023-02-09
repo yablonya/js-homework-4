@@ -29,7 +29,9 @@ let standard1 = {
 
 export function five() {
   errorCatcher(testTransformation);
-  errorCatcher(testGPAbyRequest);
+  errorCatcher(testGPAbyRequest1);
+  errorCatcher(testGPAbyRequest2);
+  errorCatcher(testGPAbyRequest3);
 }
 
 function testTransformation() {
@@ -39,13 +41,30 @@ function testTransformation() {
   assert(result, standard);
 }
 
-function testGPAbyRequest() {
-  const name = 'Dania Yablonskyi';
-  const password = 12345678;
-  const result = GPAbyRequest(name, password);
+function testGPAbyRequest1() {
+  const name1 = 'Dania Yablonskyi';
+  const password1 = 12345678;
+  const result1 = GPAbyRequest(name1, password1);
 
-  assert(result, 94.75);
+  assert(result1, 94.75);
 }
+
+function testGPAbyRequest2() {
+  const name2 = 'Svyat';
+  const password2 = 12345678;
+  const result2 = GPAbyRequest(name2, password2);
+
+  assert(result2, 94.75);
+}
+
+function testGPAbyRequest3() {
+  const name3 = 'Dania Yablonskyi';
+  const password3 = 1234;
+  const result3 = GPAbyRequest(name3, password3);
+
+  assert(result3, 94.75);
+}
+
 function assert(result, standard) {
   if (result !== standard) {
     throw new Error('test failed');

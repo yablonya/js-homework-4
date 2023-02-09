@@ -45,20 +45,27 @@ function testValueByKey() {
 }
 
 function testFindItem() {
-  const result = mapFunctions.findItem(23);
-  const standard = trueMap.has(23);
+  const result1 = mapFunctions.findItem(23);
+  const standard1 = trueMap.has(23);
 
-  assert(result, standard);
+  const result2 = mapFunctions.findItem(21);
+  const standard2 = trueMap.has(21);
+
+  assert(result1, standard1);
+  assert(result2, standard2);
 }
 
 function testDeleteItem() {
   mapFunctions.deleteItem(23);
   trueMap.delete(23);
 
-  const result = mapFunctions.findItem(23);
-  const standard = trueMap.has(23);
+  const result1 = mapFunctions.findItem(23);
+  const standard1 = trueMap.has(23);
 
-  assert(result, standard);
+  const result2 = mapFunctions.deleteItem(21);
+
+  assert(result1, standard1);
+  assert(result2, undefined)
 }
 
 function testMapKeys() {

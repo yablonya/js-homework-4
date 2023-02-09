@@ -23,16 +23,20 @@ function testAddition() {
 }
 
 function testNumOfAnimal() {
-  let result = zooMaster.numOfAnimal('cat');
+  let result1 = zooMaster.numOfAnimal('cat');
+  let result2 = zooMaster.numOfAnimal('ca');
 
-  assert(result, 1);
+  assert(result1, 1);
+  assert(result2, 1);
 }
 
 function testNameByNumber() {
   let standard = JSON.stringify([ 'dog', 'kangaroo' ]);
-  let result = JSON.stringify(zooMaster.nameByNumber(3));
+  let result1 = zooMaster.nameByNumber(3);
+  let result2 = JSON.stringify(zooMaster.nameByNumber(44));
 
-  assert(result, standard);
+  assert(JSON.stringify(result1), JSON.stringify(standard));
+  assert(JSON.stringify(result2), undefined);
 }
 
 function testAllAnimalsNum() {
@@ -62,9 +66,11 @@ function testSortZoo() {
 }
 
 function testFindAnimal() {
-  let result = zooMaster.findAnimal('cow');
+  let result1 = zooMaster.findAnimal('cow');
+  let result2 = zooMaster.findAnimal('pipi');
 
-  assert(result, true);
+  assert(result1, true);
+  assert(result2, false);
 }
 
 function testDelete() {
@@ -74,7 +80,6 @@ function testDelete() {
 
   assert(result, 4);
 }
-
 
 function assert(result, standard) {
   if (result !== standard) {
