@@ -1,4 +1,4 @@
-let students = new Map();
+let studentPassword = new Map();
 let transformed = new Map();
 export function transformation(obj) {
   let {
@@ -19,7 +19,7 @@ export function transformation(obj) {
     marks: rest
   };
 
-  students.set(newStudent.username, obj);
+  studentPassword.set(newStudent.username, obj.security.password);
   transformed.set(newStudent.username, newStudent)
 
   return newStudent;
@@ -41,8 +41,8 @@ function averageMark(obj) {
 }
 
 export function GPAbyRequest(username, password) {
-  if (students.has(username)) {
-    if (students.get(username).security.password === password) {
+  if (studentPassword.has(username)) {
+    if (studentPassword.get(username) === password) {
       return transformed.get(username).averageMark;
     }
     throw new Error('You entered incorrect password');
