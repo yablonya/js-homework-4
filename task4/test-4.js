@@ -1,11 +1,13 @@
 import {mapFunctions} from "./index-4.js";
+import {assert} from "../errorChecker.js";
+import {errorCatcher} from "../errorChecker.js";
 
 let trueMap = new Map();
 
 export function four() {
-  mapFunctions.addItem(true, 3);
-  mapFunctions.addItem(23, 'js');
-  mapFunctions.addItem('test', {'1' : true});
+  mapFunctions.set(true, 3);
+  mapFunctions.set(23, 'js');
+  mapFunctions.set('test', {'1' : true});
 
   trueMap.set(true, 3);
   trueMap.set(23, 'js');
@@ -35,9 +37,9 @@ function testAdding() {
 }
 
 function testValueByKey() {
-  const result1 = mapFunctions.valueByKey(true);
+  const result1 = mapFunctions.get(true);
   const standard1 = trueMap.get(true);
-  const result2 = mapFunctions.valueByKey('bleb');
+  const result2 = mapFunctions.get('bleb');
   const standard2 = trueMap.get('bleb');
 
   assert(result1, standard1);
@@ -45,10 +47,10 @@ function testValueByKey() {
 }
 
 function testFindItem() {
-  const result1 = mapFunctions.findItem(23);
+  const result1 = mapFunctions.has(23);
   const standard1 = trueMap.has(23);
 
-  const result2 = mapFunctions.findItem(21);
+  const result2 = mapFunctions.has(21);
   const standard2 = trueMap.has(21);
 
   assert(result1, standard1);
@@ -56,23 +58,24 @@ function testFindItem() {
 }
 
 function testDeleteItem() {
-  mapFunctions.deleteItem(23);
+  mapFunctions.delete(23);
   trueMap.delete(23);
 
-  const result1 = mapFunctions.findItem(23);
+  const result1 = mapFunctions.has(23);
   const standard1 = trueMap.has(23);
 
-  const result2 = mapFunctions.deleteItem(21);
+  const result2 = mapFunctions.delete(21);
 
   assert(result1, standard1);
-  assert(result2, undefined)
+  assert(result2, undefined);
 }
 
 function testMapKeys() {
   let i = 0;
   let counter = 0;
+
   for (let item of trueMap.keys()) {
-    if (JSON.stringify(item) === JSON.stringify(mapFunctions.mapKeys()[i])) {
+    if (item === mapFunctions.keys()[i]) {
       counter++;
     }
     i++;
@@ -85,7 +88,7 @@ function testMapValues() {
   let i = 0;
   let counter = 0;
   for (let item of trueMap.values()) {
-    if (JSON.stringify(item) === JSON.stringify(mapFunctions.mapValues()[i])) {
+    if (JSON.stringify(item) === JSON.stringify(mapFunctions.values()[i])) {
       counter++;
     }
     i++;
@@ -98,7 +101,7 @@ function testMapEntries() {
   let i = 0;
   let counter = 0;
   for (let item of trueMap.entries()) {
-    if (JSON.stringify(item) === JSON.stringify(mapFunctions.mapEntries()[i])) {
+    if (JSON.stringify(item) === JSON.stringify(mapFunctions.entries()[i])) {
       counter++;
     }
     i++;
@@ -108,29 +111,11 @@ function testMapEntries() {
 }
 
 function testClearMap() {
-  mapFunctions.clearMap();
+  mapFunctions.clear();
   trueMap.clear();
 
-  const result = mapFunctions.mapLength();
+  const result = mapFunctions.size();
   const standard = trueMap.size;
 
   assert(result, standard);
 }
-
-function assert(result, standard) {
-  if (result !== standard) {
-    throw new Error('test failed');
-  }
-  console.log('test passed successfully');
-}
-
-function errorCatcher(func) {
-  try {
-    func();
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-
-

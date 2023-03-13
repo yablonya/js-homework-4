@@ -1,6 +1,22 @@
 let studentPassword = new Map();
 let transformed = new Map();
 export function transformation(obj) {
+  if (typeof obj.name !== "string") {
+    return undefined
+  }
+
+  if (typeof obj.surname !== "string") {
+    return undefined
+  }
+
+  if (typeof obj.year !== "number" && (obj.year < 1 || obj.year > 4)) {
+    return undefined
+  }
+
+  if (typeof obj.faculty !== "string") {
+    return undefined
+  }
+
   let {
     name,
     surname,
@@ -31,13 +47,9 @@ function username(name, surname) {
 
 function averageMark(obj) {
   let marks = Object.values(obj);
-  let sum = 0;
+  let result = marks.reduce((sum, current) => sum + current);
 
-  for (let mark of marks) {
-    sum += mark;
-  }
-
-  return sum / marks.length;
+  return result / marks.length;
 }
 
 export function GPAbyRequest(username, password) {
@@ -45,7 +57,7 @@ export function GPAbyRequest(username, password) {
     if (studentPassword.get(username) === password) {
       return transformed.get(username).averageMark;
     }
-    throw new Error('You entered incorrect password');
+    return undefined;
   }
-  throw new Error('There is no such student here');
+  return undefined;
 }

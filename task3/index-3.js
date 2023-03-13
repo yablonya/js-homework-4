@@ -37,18 +37,18 @@ export const iterators = {
 
       return {
         next() {
-          if (counter < obj.text.length) {
+          if (counter < obj.text.length - 1) {
             let word = '';
 
-            if (obj.text[counter] === ' ') {
-              counter++;
+            for (counter; counter < obj.text.length; counter++) {
+              if (!punctuation.includes(obj.text[counter])) {
+                word += obj.text[counter];
+                if (punctuation.includes(obj.text[counter + 1])) {
+                  counter++;
+                  break;
+                }
+              }
             }
-
-            while (!punctuation.includes(obj.text[counter])) {
-              word += obj.text[counter];
-              counter++;
-            }
-            counter++;
 
             return { done: false, value: word };
           } else {
@@ -103,7 +103,7 @@ export const iterators = {
         clearText += char;
       }
       let counter = -1;
-      let abc = ['a', 'e', 'i', 'o', 'u', 'y', 'A', 'B', 'I', 'O', 'U', 'Y']
+      let abc = ['a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y']
 
       return {
         next() {

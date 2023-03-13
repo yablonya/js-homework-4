@@ -1,4 +1,6 @@
 import {iterators} from "./index-3.js";
+import {assert} from "../errorChecker.js";
+import {errorCatcher} from "../errorChecker.js";
 
 export function three() {
   errorCatcher(testCouples);
@@ -24,25 +26,25 @@ function testCouples() {
 }
 
 function testWords() {
-  let standard = JSON.stringify([ 'I', 'love', 'dev', 'department', 'It', 'makes', 'me', 'happy' ]);
+  let standard = [ 'I', 'love', 'dev', 'department', 'It', 'makes', 'me', 'happy' ];
   let result = [];
 
   for (let word of iterators.words) {
     result.push(word);
   }
 
-  assert(JSON.stringify(result), standard);
+  assert(JSON.stringify(result), JSON.stringify(standard));
 }
 
 function testSentences() {
-  let standard = JSON.stringify([ 'I love dev department', 'It makes me happy' ]);
+  let standard = [ 'I love dev department', 'It makes me happy' ];
   let result = [];
 
   for (let sentence of iterators.sentences) {
     result.push(sentence);
   }
 
-  assert(JSON.stringify(result), standard);
+  assert(JSON.stringify(result), JSON.stringify(standard));
 }
 
 function testVowelLetters() {
@@ -59,19 +61,4 @@ function testVowelLetters() {
   }
 
   assert(JSON.stringify(result), standard);
-}
-
-function assert(result, standard) {
-  if (result !== standard) {
-    throw new Error('test failed');
-  }
-  console.log('test passed successfully');
-}
-
-function errorCatcher(func) {
-  try {
-    func();
-  } catch (e) {
-    console.log(e);
-  }
 }

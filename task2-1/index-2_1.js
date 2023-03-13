@@ -5,7 +5,7 @@ export const zooMaster = {
     let beast = this.zoo.find(animal => animal.name === name);
 
     if (beast === undefined) {
-      throw new Error('There is no such animal in the zoo');
+      return 0;
     }
 
     return beast.number;
@@ -22,19 +22,7 @@ export const zooMaster = {
   nameByNumber(num) {
     let animalsArray = this.zoo.filter(animal => animal.number === num);
 
-    if (animalsArray.length === 0) {
-      throw new Error('There are no such number of animals');
-    }
-
-    let namesArray = [];
-
-    for (let animal of animalsArray) {
-      if (animal.number === num) {
-        namesArray.push(animal.name);
-      }
-    }
-
-    return namesArray;
+    return animalsArray.map((a) => a.name);
   },
 
   sortZoo() {
@@ -48,7 +36,7 @@ export const zooMaster = {
   },
 
   addAnimal(name, number = 1) {
-    if ( this.findAnimal(name) ) {
+    if ( this.existAnimal(name) ) {
       let zooAnimal = this.zoo.find(animal => animal.name === name);
       zooAnimal.number += number;
     } else {
@@ -57,7 +45,7 @@ export const zooMaster = {
   },
 
   outputZoo() {
-    return JSON.stringify(this.zoo);
+    return this.zoo;
   },
 
   deleteAnimal(name) {
@@ -67,12 +55,10 @@ export const zooMaster = {
       let animalIndex = this.zoo.findIndex(animal => animal.name === name);
 
       this.zoo.splice(animalIndex, 1);
-    } else {
-      throw new Error('There is no such animal in the zoo');
     }
   },
 
-  findAnimal(name) {
+  existAnimal(name) {
     return this.zoo.some(animal => animal.name === name);
   }
 }

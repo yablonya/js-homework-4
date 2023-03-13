@@ -1,4 +1,7 @@
 import {zooMaster2} from "./index-2_2.js";
+import {assert} from "../errorChecker.js";
+import {errorCatcher} from "../errorChecker.js";
+
 export function twoSecond() {
   zooMaster2.addAnimal('dog', 3);
   zooMaster2.addAnimal('cat');
@@ -12,7 +15,7 @@ export function twoSecond() {
   errorCatcher(testAllAnimalsNum);
   errorCatcher(testOutputZoo);
   errorCatcher(testSortZoo);
-  errorCatcher(testFindAnimal);
+  errorCatcher(testExistAnimal);
   errorCatcher(testDelete);
 }
 
@@ -27,16 +30,16 @@ function testNumOfAnimal() {
   let result2 = zooMaster2.numOfAnimal('ca');
 
   assert(result1, 1);
-  assert(result2, 1);
+  assert(result2, 0);
 }
 
 function testNameByNumber() {
-  let standard = JSON.stringify([ 'dog', 'kangaroo' ]);
+  let standard = [ 'dog', 'kangaroo' ];
   let result1 = zooMaster2.nameByNumber(3);
-  let result2 = JSON.stringify(zooMaster2.nameByNumber(44));
+  let result2 = zooMaster2.nameByNumber(44);
 
   assert(JSON.stringify(result1), JSON.stringify(standard));
-  assert(JSON.stringify(result2), undefined);
+  assert(JSON.stringify(result2), JSON.stringify([]));
 }
 
 function testAllAnimalsNum() {
@@ -47,7 +50,7 @@ function testAllAnimalsNum() {
 
 function testOutputZoo() {
   let standard = JSON.stringify(zooMaster2.zoo);
-  let result = zooMaster2.outputZoo();
+  let result = JSON.stringify(zooMaster2.outputZoo());
 
   assert(result, standard);
 }
@@ -65,9 +68,9 @@ function testSortZoo() {
   assert(result,standard);
 }
 
-function testFindAnimal() {
-  let result1 = zooMaster2.findAnimal('cow');
-  let result2 = zooMaster2.findAnimal('pipi');
+function testExistAnimal() {
+  let result1 = zooMaster2.existAnimal('cow');
+  let result2 = zooMaster2.existAnimal('pipi');
 
   assert(result1, true);
   assert(result2, false);
@@ -79,19 +82,4 @@ function testDelete() {
   let result = zooMaster2.zoo.length;
 
   assert(result, 4);
-}
-
-function assert(result, standard) {
-  if (result !== standard) {
-    throw new Error('test failed');
-  }
-  console.log('test passed successfully');
-}
-
-function errorCatcher(func) {
-  try {
-    func();
-  } catch (e) {
-    console.log(e);
-  }
 }

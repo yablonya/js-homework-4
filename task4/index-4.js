@@ -1,11 +1,13 @@
 export const mapFunctions = {
   myMap : [],
 
-  addItem(key, value) {
-    this.myMap.push([key, value]);
+  set(key, value) {
+    if (!this.has(key)) {
+      this.myMap.push([key, value]);
+    }
   },
 
-  valueByKey(key) {
+  get(key) {
     let item = this.myMap.find(arrayItem => arrayItem[0] === key);
 
     if (item === undefined) {
@@ -15,12 +17,12 @@ export const mapFunctions = {
     return item[1];
   },
 
-  findItem(key) {
+  has(key) {
     return this.myMap.some(item => item[0] === key);
   },
 
-  deleteItem(key) {
-    if (!(this.myMap.some(item => item[0] === key))) {
+  delete(key) {
+    if (!this.has(key)) {
       return undefined;
     }
     let itemIndex = this.myMap.findIndex(item => item[0] === key);
@@ -28,31 +30,23 @@ export const mapFunctions = {
     this.myMap.splice(itemIndex, 1);
   },
 
-  clearMap() {
+  clear() {
     this.myMap.length = 0;
   },
 
-  mapLength() {
+  size() {
     return this.myMap.length;
   },
 
-  mapKeys() {
-    let keys = [];
-
-    this.myMap.forEach(item => keys.push(item[0]));
-
-    return keys;
+  keys() {
+    return this.myMap.map((item) => item[0]);
   },
 
-  mapValues() {
-    let values = [];
-
-    this.myMap.forEach(item => values.push(item[1]));
-
-    return values;
+  values() {
+    return this.myMap.map((item) => item[1]);
   },
 
-  mapEntries() {
+  entries() {
     return this.myMap;
   }
 }
