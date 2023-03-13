@@ -46,15 +46,22 @@ let standard1 = {
 }
 
 export function five() {
-  errorCatcher(testTransformation);
+  errorCatcher(testTransformation1);
+  errorCatcher(testTransformation2);
   errorCatcher(testGPAbyRequest1);
   errorCatcher(testGPAbyRequest2);
   errorCatcher(testGPAbyRequest3);
 }
 
-function testTransformation() {
+function testTransformation1() {
   const result = JSON.stringify(transformation(student1));
   const standard = JSON.stringify(standard1);
+
+  assert(result, standard);
+}
+function testTransformation2() {
+  const result = JSON.stringify(transformation(student2));
+  const standard = undefined;
 
   assert(result, standard);
 }
