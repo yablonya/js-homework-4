@@ -45,9 +45,7 @@ export const zooMaster2 = {
     for (let i = 0; i < sortedZoo.length - 1; i++) {
       for (let j = 0; j < sortedZoo.length - 1; j++) {
         if (sortedZoo[j].number > sortedZoo[j + 1].number) {
-          termItem = sortedZoo[j + 1];
-          sortedZoo[j + 1] = sortedZoo[j];
-          sortedZoo[j] = termItem;
+          [sortedZoo[j], sortedZoo[j + 1]] = [sortedZoo[j + 1], sortedZoo[j]];
         }
       }
     }

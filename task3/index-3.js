@@ -79,6 +79,7 @@ export const iterators = {
                 break;
               }
             }
+            sentence += obj.text[counter];
             counter += 2;
 
             return { done: false, value: sentence };

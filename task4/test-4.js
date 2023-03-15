@@ -7,10 +7,12 @@ let trueMap = new Map();
 export function four() {
   mapFunctions.set(true, 3);
   mapFunctions.set(23, 'js');
+  mapFunctions.set(23, 'JS');
   mapFunctions.set('test', {'1' : true});
 
   trueMap.set(true, 3);
   trueMap.set(23, 'js');
+  trueMap.set(23, 'JS');
   trueMap.set('test', {'1' : true});
 
   errorCatcher(testAdding);

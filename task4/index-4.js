@@ -2,8 +2,12 @@ export const mapFunctions = {
   myMap : [],
 
   set(key, value) {
-    if (!this.has(key)) {
+    let itemIndex = this.myMap.findIndex(item => item[0] === key);
+
+    if (itemIndex === -1) {
       this.myMap.push([key, value]);
+    } else {
+      this.myMap[itemIndex][1] = value;
     }
   },
 

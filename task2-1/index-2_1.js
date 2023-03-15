@@ -49,11 +49,9 @@ export const zooMaster = {
   },
 
   deleteAnimal(name) {
-    let availability = this.zoo.some(animal => animal.name === name);
+    let animalIndex = this.zoo.findIndex(animal => animal.name === name);
 
-    if (availability) {
-      let animalIndex = this.zoo.findIndex(animal => animal.name === name);
-
+    if (animalIndex !== -1) {
       this.zoo.splice(animalIndex, 1);
     }
   },

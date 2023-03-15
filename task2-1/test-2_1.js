@@ -16,7 +16,8 @@ export function twoFirst() {
   errorCatcher(testOutputZoo);
   errorCatcher(testSortZoo);
   errorCatcher(testExistAnimal);
-  errorCatcher(testDelete);
+  errorCatcher(testDelete1);
+  errorCatcher(testDelete2);
 }
 
 function testAddition() {
@@ -76,8 +77,16 @@ function testExistAnimal() {
   assert(result2, false);
 }
 
-function testDelete() {
+function testDelete1() {
   zooMaster.deleteAnimal('horse');
+
+  let result = zooMaster.zoo.length;
+
+  assert(result, 4);
+}
+
+function testDelete2() {
+  zooMaster.deleteAnimal('ahtung');
 
   let result = zooMaster.zoo.length;
 

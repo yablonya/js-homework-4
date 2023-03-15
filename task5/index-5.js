@@ -47,17 +47,14 @@ function username(name, surname) {
 
 function averageMark(obj) {
   let marks = Object.values(obj);
-  let result = marks.reduce((sum, current) => sum + current);
+  let result = marks.reduce((sum, current) => sum + +current);
 
   return result / marks.length;
 }
 
 export function GPAbyRequest(username, password) {
-  if (studentPassword.has(username)) {
-    if (studentPassword.get(username) === password) {
-      return transformed.get(username).averageMark;
-    }
-    return undefined;
+  if (studentPassword.get(username) === password) {
+    return transformed.get(username).averageMark;
   }
   return undefined;
 }

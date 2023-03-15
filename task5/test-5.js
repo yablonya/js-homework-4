@@ -29,7 +29,7 @@ let student2 = {
   },
   programming: 95,
   dm: 96,
-  math: 95,
+  math: '95',
   os: 93
 }
 

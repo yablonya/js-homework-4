@@ -37,7 +37,7 @@ function testWords() {
 }
 
 function testSentences() {
-  let standard = [ 'I love dev department', 'It makes me happy' ];
+  let standard = [ 'I love dev department.', 'It makes me happy!' ];
   let result = [];
 
   for (let sentence of iterators.sentences) {

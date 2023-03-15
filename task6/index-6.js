@@ -2,17 +2,21 @@ export const cityTemp = {
 
   Kyiv: 23,
   Vashington: 14,
+  London: NaN,
   Lviv: 20,
-  NewYork: 8,
+  NewYork: '8',
 
   [Symbol.toPrimitive](hint) {
     if (hint === "string") {
-      const keyValue = Object.entries(this)
+      const entries = Object.entries(this);
       let out = "";
 
-      for(let i = 0; i < keyValue.length; i++) {
-        out += `${keyValue[i][0]}: ${keyValue[i][1]}`;
-        i !== (keyValue.length - 1) ? out += ";\n" : out += ".";
+      for(let i = 0; i < entries.length; i++) {
+        if (isNaN(entries[i][1])) {
+          continue;
+        }
+        out += `${entries[i][0]}: ${entries[i][1]}`;
+        i !== (entries.length - 1) ? out += ";\n" : out += ".";
       }
 
       return out;
@@ -20,8 +24,13 @@ export const cityTemp = {
     const values = Object.values(this);
     let sum = 0;
 
-    values.forEach(value => sum += value);
+    for (let value of values) {
+      if (isNaN(value)) {
+        continue;
+      }
+      sum += +value;
+    }
 
-    return sum;
+    return (sum / --values.length).toFixed(2);
   }
 }

@@ -1,4 +1,6 @@
 import {cityTemp} from "./index-6.js";
+import {assert} from "../errorChecker.js";
+import {errorCatcher} from "../errorChecker.js";
 export function six() {
   errorCatcher(toStringTest);
   errorCatcher(toNumberTest);
@@ -15,23 +17,8 @@ function toStringTest() {
 }
 
 function toNumberTest() {
-  const numCheck = 65;
+  const numCheck = 16.25;
   const result = +cityTemp;
 
   assert(result, numCheck);
-}
-
-function assert(result, standard) {
-  if (result !== standard) {
-    throw new Error('test failed');
-  }
-  console.log('test passed successfully');
-}
-
-function errorCatcher(func) {
-  try {
-    func();
-  } catch (e) {
-    console.log(e);
-  }
 }
